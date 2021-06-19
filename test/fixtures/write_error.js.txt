@@ -29,7 +29,7 @@ proc.argv[ 4 ] = '--snapshot';
 proc.argv[ 5 ] = resolve( __dirname, 'fixtures', 'tmp_state.txt' );
 
 proxyquire( fpath, {
-	'@stdlib/fs/write-file': {
+	'@stdlib/fs-write-file': {
 		'sync': writeFile
 	}
 });
