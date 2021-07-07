@@ -1,6 +1,6 @@
 {
   "name": "@stdlib/random-streams-minstd",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Create a readable stream for a linear congruential pseudorandom number generator (LCG) based on Park and Miller.",
   "license": "Apache-2.0",
   "author": {
