@@ -18,44 +18,48 @@ limitations under the License.
 
 -->
 
+
+<details>
+  <summary>
+    About stdlib...
+  </summary>
+  <p>We believe in a future in which the web is a preferred environment for numerical computation. To help realize this future, we've built stdlib. stdlib is a standard library, with an emphasis on numerical and scientific computation, written in JavaScript (and C) for execution in browsers and in Node.js.</p>
+  <p>The library is fully decomposable, being architected in such a way that you can swap out and mix and match APIs and functionality to cater to your exact preferences and use cases.</p>
+  <p>When you use stdlib, you can be absolutely certain that you are using the most thorough, rigorous, well-written, studied, documented, tested, measured, and high-quality code out there.</p>
+  <p>To join us in bringing numerical computing to the web, get started by checking us out on <a href="https://github.com/stdlib-js/stdlib">GitHub</a>, and please consider <a href="https://opencollective.com/stdlib">financially supporting stdlib</a>. We greatly appreciate your continued support!</p>
+</details>
+
 # MINSTD
 
 [![NPM version][npm-image]][npm-url] [![Build Status][test-image]][test-url] [![Coverage Status][coverage-image]][coverage-url] <!-- [![dependencies][dependencies-image]][dependencies-url] -->
 
 > Create a [readable stream][readable-stream] for a linear congruential pseudorandom number generator ([LCG][@stdlib/random/base/minstd]) based on Park and Miller.
 
+<section class="installation">
 
+## Installation
+
+```bash
+npm install @stdlib/random-streams-minstd
+```
+
+Alternatively,
+
+-   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm` branch][esm-url].
+-   If you are using Deno, visit the [`deno` branch][deno-url].
+-   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd` branch][umd-url].
+-   To use as a general utility for the command line, install the corresponding [CLI package][cli-section] globally.
+
+The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
+
+</section>
 
 <section class="usage">
 
 ## Usage
 
-To use in Observable,
-
 ```javascript
-randomStream = require( 'https://cdn.jsdelivr.net/gh/stdlib-js/random-streams-minstd@umd/browser.js' )
-```
-
-To vendor stdlib functionality and avoid installing dependency trees for Node.js, you can use the UMD server build:
-
-```javascript
-var randomStream = require( 'path/to/vendor/umd/random-streams-minstd/index.js' )
-```
-
-To include the bundle in a webpage,
-
-```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/random-streams-minstd@umd/browser.js"></script>
-```
-
-If no recognized module system is present, access bundle contents via the global scope:
-
-```html
-<script type="text/javascript">
-(function () {
-    window.randomStream;
-})();
-</script>
+var randomStream = require( '@stdlib/random-streams-minstd' );
 ```
 
 <a name="random-stream"></a>
@@ -383,14 +387,9 @@ function onState( state ) {
 
 <!-- eslint no-undef: "error" -->
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<body>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/streams-node-inspect-sink@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/random-streams-minstd@umd/browser.js"></script>
-<script type="text/javascript">
-(function () {
+```javascript
+var inspectStream = require( '@stdlib/streams-node-inspect-sink' );
+var randomStream = require( '@stdlib/random-streams-minstd' );
 
 function log( v ) {
     console.log( v.toString() );
@@ -409,11 +408,6 @@ opts = {
 var iStream = inspectStream( opts, log );
 
 stream.pipe( iStream );
-
-})();
-</script>
-</body>
-</html>
 ```
 
 </section>
@@ -422,7 +416,81 @@ stream.pipe( iStream );
 
 <!-- Section for describing a command-line interface. -->
 
+* * *
 
+<section class="cli">
+
+## CLI
+
+<section class="installation">
+
+## Installation
+
+To use as a general utility, install the CLI package globally
+
+```bash
+npm install -g @stdlib/random-streams-minstd-cli
+```
+
+</section>
+<!-- CLI usage documentation. -->
+
+
+<section class="usage">
+
+### Usage
+
+```text
+Usage: random-minstd [options]
+
+Options:
+
+  -h,  --help               Print this message.
+  -V,  --version            Print the package version.
+       --sep sep            Separator used to join streamed data. Default: '\n'.
+  -n,  --iter iterations    Number of pseudorandom numbers.
+       --normalized         Generate pseudorandom numbers on the interval [0,1).
+       --seed seed          Pseudorandom number generator seed.
+       --state filepath     Path to a file containing the pseudorandom number
+                            generator state.
+       --snapshot filepath  Output file path for saving the pseudorandom number
+                            generator state upon exit.
+```
+
+</section>
+
+<!-- /.usage -->
+
+<!-- CLI usage notes. Make sure to keep an empty line after the `section` element and another before the `/section` close. -->
+
+<section class="notes">
+
+### Notes
+
+-   In accordance with POSIX convention, a trailing newline is **always** appended to generated output prior to exit.
+-   Specifying a "snapshot" file path is useful when wanting to resume pseudorandom number generation due to, e.g., a downstream failure in an analysis pipeline. Before exiting, the process will store the pseudorandom number generator state in a file specified according to a provided file path. Upon loading a snapshot (state), the process will generate pseudorandom numbers starting from the loaded state, thus avoiding having to seed and replay an entire analysis.
+
+</section>
+
+<!-- /.notes -->
+
+<!-- CLI usage examples. -->
+
+<section class="examples">
+
+### Examples
+
+```bash
+$ random-minstd -n 10 --seed 1234
+```
+
+</section>
+
+<!-- /.examples -->
+
+</section>
+
+<!-- /.cli -->
 
 * * *
 
@@ -495,8 +563,8 @@ Copyright &copy; 2016-2023. The Stdlib [Authors][stdlib-authors].
 [npm-image]: http://img.shields.io/npm/v/@stdlib/random-streams-minstd.svg
 [npm-url]: https://npmjs.org/package/@stdlib/random-streams-minstd
 
-[test-image]: https://github.com/stdlib-js/random-streams-minstd/actions/workflows/test.yml/badge.svg?branch=main
-[test-url]: https://github.com/stdlib-js/random-streams-minstd/actions/workflows/test.yml?query=branch:main
+[test-image]: https://github.com/stdlib-js/random-streams-minstd/actions/workflows/test.yml/badge.svg?branch=v0.1.0
+[test-url]: https://github.com/stdlib-js/random-streams-minstd/actions/workflows/test.yml?query=branch:v0.1.0
 
 [coverage-image]: https://img.shields.io/codecov/c/github/stdlib-js/random-streams-minstd/main.svg
 [coverage-url]: https://codecov.io/github/stdlib-js/random-streams-minstd?branch=main
@@ -535,23 +603,23 @@ Copyright &copy; 2016-2023. The Stdlib [Authors][stdlib-authors].
 
 [readable-stream]: https://nodejs.org/api/stream.html
 
-[@stdlib/array/int32]: https://github.com/stdlib-js/array-int32/tree/umd
+[@stdlib/array/int32]: https://github.com/stdlib-js/array-int32
 
 [@park:1988]: http://dx.doi.org/10.1145/63039.63042
 
 <!-- <related-links> -->
 
-[@stdlib/random/base/minstd]: https://github.com/stdlib-js/random-base-minstd/tree/umd
+[@stdlib/random/base/minstd]: https://github.com/stdlib-js/random-base-minstd
 
-[@stdlib/random/iter/minstd]: https://github.com/stdlib-js/random-iter-minstd/tree/umd
+[@stdlib/random/iter/minstd]: https://github.com/stdlib-js/random-iter-minstd
 
-[@stdlib/random/streams/minstd-shuffle]: https://github.com/stdlib-js/random-streams-minstd-shuffle/tree/umd
+[@stdlib/random/streams/minstd-shuffle]: https://github.com/stdlib-js/random-streams-minstd-shuffle
 
-[@stdlib/random/streams/mt19937]: https://github.com/stdlib-js/random-streams-mt19937/tree/umd
+[@stdlib/random/streams/mt19937]: https://github.com/stdlib-js/random-streams-mt19937
 
-[@stdlib/random/streams/randi]: https://github.com/stdlib-js/random-streams-randi/tree/umd
+[@stdlib/random/streams/randi]: https://github.com/stdlib-js/random-streams-randi
 
-[@stdlib/random/streams/randu]: https://github.com/stdlib-js/random-streams-randu/tree/umd
+[@stdlib/random/streams/randu]: https://github.com/stdlib-js/random-streams-randu
 
 <!-- </related-links> -->
 
