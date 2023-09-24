@@ -35,392 +35,21 @@ limitations under the License.
 
 > Create a [readable stream][readable-stream] for a linear congruential pseudorandom number generator ([LCG][@stdlib/random/base/minstd]) based on Park and Miller.
 
-<section class="installation">
 
-## Installation
 
-```bash
-npm install @stdlib/random-streams-minstd
-```
 
-Alternatively,
 
--   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm` branch][esm-url].
--   If you are using Deno, visit the [`deno` branch][deno-url].
--   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd` branch][umd-url].
--   To use as a general utility for the command line, install the corresponding [CLI package][cli-section] globally.
 
-The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
 
-</section>
 
-<section class="usage">
-
-## Usage
-
-```javascript
-var randomStream = require( '@stdlib/random-streams-minstd' );
-```
-
-<a name="random-stream"></a>
-
-#### randomStream( \[options] )
-
-Returns a [readable stream][readable-stream] for a linear congruential pseudorandom number generator ([LCG][@stdlib/random/base/minstd]) based on Park and Miller.
-
-```javascript
-var inspectStream = require( '@stdlib/streams-node-inspect-sink' );
-
-var iStream;
-var stream;
-
-function log( chunk, idx ) {
-    console.log( chunk.toString() );
-    if ( idx === 10 ) {
-        stream.destroy();
-    }
-}
-
-stream = randomStream();
-iStream = inspectStream( log );
-
-stream.pipe( iStream );
-```
-
-The function accepts the following `options`:
-
--   **objectMode**: specifies whether a [stream][stream] should operate in [objectMode][object-mode]. Default: `false`.
--   **encoding**: specifies how `Buffer` objects should be decoded to `strings`. Default: `null`.
--   **highWaterMark**: specifies the maximum number of bytes to store in an internal buffer before ceasing to generate additional pseudorandom numbers.
--   **sep**: separator used to join streamed data. This option is only applicable when a stream is **not** in [objectMode][object-mode]. Default: `'\n'`.
--   **iter**: number of iterations.
--   **normalized**: `boolean` indicating whether to return pseudorandom numbers on the interval `[0,1)`.
--   **seed**: pseudorandom number generator seed.
--   **state**: an [`Int32Array`][@stdlib/array/int32] containing pseudorandom number generator state. If provided, the function ignores the `seed` option.
--   **copy**: `boolean` indicating whether to copy a provided pseudorandom number generator state. Setting this option to `false` allows sharing state between two or more pseudorandom number generators and/or streams. Setting this option to `true` ensures that a stream generator has exclusive control over its internal state. Default: `true`.
--   **siter**: number of iterations after which to emit the pseudorandom number generator state. This option is useful when wanting to deterministically capture a stream's underlying PRNG state. Default: `1e308`.
-
-To set [stream][stream] `options`,
-
-```javascript
-var opts = {
-    'objectMode': true,
-    'encoding': 'utf8',
-    'highWaterMark': 64
-};
-
-var stream = randomStream( opts );
-```
-
-By default, the function returns a [stream][stream] which can generate an infinite number of values (i.e., the [stream][stream] will **never** end). To limit the number of generated pseudorandom numbers, set the `iter` option.
-
-```javascript
-var inspectStream = require( '@stdlib/streams-node-inspect-sink' );
-
-function log( chunk ) {
-    console.log( chunk.toString() );
-}
-
-var opts = {
-    'iter': 10
-};
-
-var stream = randomStream( opts );
-var iStream = inspectStream( log );
-
-stream.pipe( iStream );
-```
-
-To return pseudorandom numbers on the interval `[0,1)`, set the `normalized` option.
-
-```javascript
-var inspectStream = require( '@stdlib/streams-node-inspect-sink' );
-
-function log( chunk ) {
-    console.log( chunk.toString() );
-}
-
-var opts = {
-    'iter': 10,
-    'normalized': true
-};
-
-var stream = randomStream( opts );
-var iStream = inspectStream( log );
-
-stream.pipe( iStream );
-```
-
-By default, when not operating in [objectMode][object-mode], a returned [stream][stream] delineates generated pseudorandom numbers using a newline character. To specify an alternative separator, set the `sep` option.
-
-```javascript
-var inspectStream = require( '@stdlib/streams-node-inspect-sink' );
-
-function log( chunk ) {
-    console.log( chunk.toString() );
-}
-
-var opts = {
-    'iter': 10,
-    'sep': ','
-};
-
-var stream = randomStream( opts );
-var iStream = inspectStream( log );
-
-stream.pipe( iStream );
-```
-
-To seed the underlying pseudorandom number generator, set the `seed` option.
-
-```javascript
-var inspectStream = require( '@stdlib/streams-node-inspect-sink' );
-
-function log( v ) {
-    console.log( v );
-}
-
-var opts = {
-    'objectMode': true,
-    'iter': 10,
-    'seed': 1234
-};
-
-var stream = randomStream( opts );
-
-opts = {
-    'objectMode': true
-};
-var iStream = inspectStream( opts, log );
-
-stream.pipe( iStream );
-```
-
-To return a [readable stream][readable-stream] with an underlying pseudorandom number generator having a specific initial state, set the `state` option.
-
-```javascript
-var inspectStream = require( '@stdlib/streams-node-inspect-sink' );
-
-function log( v ) {
-    console.log( v );
-}
-
-var opts1 = {
-    'objectMode': true,
-    'iter': 10
-};
-
-var stream = randomStream( opts1 );
-
-var opts2 = {
-    'objectMode': true
-};
-var iStream = inspectStream( opts2, log );
-
-// Stream pseudorandom numbers, thus progressing the underlying generator state:
-stream.pipe( iStream );
-
-// Create a new PRNG stream initialized to the last state of the previous stream:
-var opts3 = {
-    'objectMode': true,
-    'iter': 10,
-    'state': stream.state
-};
-
-stream = randomStream( opts3 );
-iStream = inspectStream( opts2, log );
-
-// Stream pseudorandom numbers starting from the last state of the previous stream:
-stream.pipe( iStream );
-```
-
-##### stream.seed
-
-The value used to seed the underlying pseudorandom number generator.
-
-```javascript
-var stream = randomStream();
-
-var seed = stream.seed;
-// returns <Int32Array>
-```
-
-##### stream.seedLength
-
-Length of underlying pseudorandom number generator seed.
-
-```javascript
-var stream = randomStream();
-
-var len = stream.seedLength;
-// returns <number>
-```
-
-##### stream.state
-
-Writable property for getting and setting the underlying pseudorandom number generator state.
-
-```javascript
-var stream = randomStream();
-
-var state = stream.state;
-// returns <Int32Array>
-```
-
-##### stream.stateLength
-
-Length of underlying pseudorandom number generator state.
-
-```javascript
-var stream = randomStream();
-
-var len = stream.stateLength;
-// returns <number>
-```
-
-##### stream.byteLength
-
-Size (in bytes) of underlying pseudorandom number generator state.
-
-```javascript
-var stream = randomStream();
-
-var sz = stream.byteLength;
-// returns <number>
-```
-
-* * *
-
-#### randomStream.factory( \[options] )
-
-Returns a `function` for creating [readable streams][readable-stream] which generate pseudorandom numbers via a linear congruential pseudorandom number generator ([LCG][@stdlib/random/base/minstd]) based on Park and Miller.
-
-```javascript
-var opts = {
-    'objectMode': true,
-    'encoding': 'utf8',
-    'highWaterMark': 64
-};
-
-var createStream = randomStream.factory( opts );
-```
-
-The method accepts the same `options` as [`randomStream()`](#random-stream).
-
-* * *
-
-#### randomStream.objectMode( \[options] )
-
-This method is a convenience function to create [streams][stream] which **always** operate in [objectMode][object-mode].
-
-```javascript
-var inspectStream = require( '@stdlib/streams-node-inspect-sink' );
-
-function log( v ) {
-    console.log( v );
-}
-
-var opts = {
-    'iter': 10
-};
-var stream = randomStream.objectMode( opts );
-
-opts = {
-    'objectMode': true
-};
-var iStream = inspectStream( opts, log );
-
-stream.pipe( iStream );
-```
-
-This method accepts the same `options` as [`randomStream()`](#random-stream); however, the method will **always** override the [`objectMode`][object-mode] option in `options`.
-
-* * *
-
-### Events
-
-In addition to the standard [readable stream][readable-stream] events, the following events are supported...
-
-#### 'state'
-
-Emitted after internally generating `siter` pseudorandom numbers.
-
-```javascript
-var opts = {
-    'siter': 10 // emit the PRNG state every 10 pseudorandom numbers
-};
-
-var stream = randomStream( opts );
-
-stream.on( 'state', onState );
-
-function onState( state ) {
-    // Do something with the emitted state, such as save to file...
-}
-```
-
-</section>
-
-<!-- /.usage -->
-
-* * *
-
-<section class="notes">
-
-## Notes
-
--   The underlying pseudorandom number generator has a period of approximately `2.1e9` (see [Numerical Recipes in C, 2nd Edition](#references), p. 279).
--   An [LCG][@stdlib/random/base/minstd] is fast and uses little memory. On the other hand, because the generator is a simple [linear congruential generator][@stdlib/random/base/minstd], the generator has recognized shortcomings. By today's PRNG standards, the generator's period is relatively short. More importantly, the "randomness quality" of the generator's output is lacking. These defects make the generator unsuitable, for example, in Monte Carlo simulations and in cryptographic applications.
--   If PRNG state is "shared" (meaning a state array was provided during stream creation and **not** copied) and one sets the generator state to a state array having a different length, the underlying PRNG does **not** update the existing shared state and, instead, points to the newly provided state array. In order to synchronize PRNG output according to the new shared state array, the state array for **each** relevant PRNG must be **explicitly** set.
--   If PRNG state is "shared" and one sets the generator state to a state array of the same length, the PRNG state is updated (along with the state of all other PRNGs sharing the PRNG's state array).
--   In order to capture the PRNG state after a specific number of generated pseudorandom numbers, regardless of internal stream buffering, use the `siter` option in conjunction with a `state` event listener. Attempting to capture the underlying PRNG state after **reading** generated numbers is **not** likely to give expected results, as internal stream buffering will mean more values have been generated than have been read. Thus, the state returned by the `state` property will likely reflect a future PRNG state from the perspective of downstream consumers.
-
-</section>
-
-<!-- /.notes -->
-
-* * *
-
-<section class="examples">
-
-## Examples
-
-<!-- eslint no-undef: "error" -->
-
-```javascript
-var inspectStream = require( '@stdlib/streams-node-inspect-sink' );
-var randomStream = require( '@stdlib/random-streams-minstd' );
-
-function log( v ) {
-    console.log( v.toString() );
-}
-
-var opts = {
-    'objectMode': true,
-    'iter': 10
-};
-
-var stream = randomStream( opts );
-
-opts = {
-    'objectMode': true
-};
-var iStream = inspectStream( opts, log );
-
-stream.pipe( iStream );
-```
-
-</section>
-
-<!-- /.examples -->
 
 <!-- Section for describing a command-line interface. -->
 
-* * *
+
 
 <section class="cli">
 
-## CLI
+
 
 <section class="installation">
 
@@ -438,7 +67,7 @@ npm install -g @stdlib/random-streams-minstd-cli
 
 <section class="usage">
 
-### Usage
+## Usage
 
 ```text
 Usage: random-minstd [options]
@@ -465,7 +94,7 @@ Options:
 
 <section class="notes">
 
-### Notes
+## Notes
 
 -   In accordance with POSIX convention, a trailing newline is **always** appended to generated output prior to exit.
 -   Specifying a "snapshot" file path is useful when wanting to resume pseudorandom number generation due to, e.g., a downstream failure in an analysis pipeline. Before exiting, the process will store the pseudorandom number generator state in a file specified according to a provided file path. Upon loading a snapshot (state), the process will generate pseudorandom numbers starting from the loaded state, thus avoiding having to seed and replay an entire analysis.
@@ -478,7 +107,7 @@ Options:
 
 <section class="examples">
 
-### Examples
+## Examples
 
 ```bash
 $ random-minstd -n 10 --seed 1234
@@ -509,10 +138,9 @@ $ random-minstd -n 10 --seed 1234
 
 <section class="related">
 
-* * *
-
 ## See Also
 
+-   <span class="package-name">[`@stdlib/random-streams-minstd`][@stdlib/random-streams-minstd]</span><span class="delimiter">: </span><span class="description">create a readable stream for a linear congruential pseudorandom number generator (LCG) based on Park and Miller.</span>
 -   <span class="package-name">[`@stdlib/random-base/minstd`][@stdlib/random/base/minstd]</span><span class="delimiter">: </span><span class="description">A linear congruential pseudorandom number generator (LCG) based on Park and Miller.</span>
 -   <span class="package-name">[`@stdlib/random-iter/minstd`][@stdlib/random/iter/minstd]</span><span class="delimiter">: </span><span class="description">create an iterator for a linear congruential pseudorandom number generator (LCG) based on Park and Miller.</span>
 -   <span class="package-name">[`@stdlib/random-streams/minstd-shuffle`][@stdlib/random/streams/minstd-shuffle]</span><span class="delimiter">: </span><span class="description">create a readable stream for a linear congruential pseudorandom number generator (LCG) whose output is shuffled.</span>
@@ -537,7 +165,7 @@ This package is part of [stdlib][stdlib], a standard library for JavaScript and 
 
 For more information on the project, filing bug reports and feature requests, and guidance on how to develop [stdlib][stdlib], see the main project [repository][stdlib].
 
-#### Community
+### Community
 
 [![Chat][chat-image]][chat-url]
 
@@ -560,8 +188,8 @@ Copyright &copy; 2016-2023. The Stdlib [Authors][stdlib-authors].
 
 <section class="links">
 
-[npm-image]: http://img.shields.io/npm/v/@stdlib/random-streams-minstd.svg
-[npm-url]: https://npmjs.org/package/@stdlib/random-streams-minstd
+[npm-image]: http://img.shields.io/npm/v/@stdlib/random-streams-minstd-cli.svg
+[npm-url]: https://npmjs.org/package/@stdlib/random-streams-minstd-cli
 
 [test-image]: https://github.com/stdlib-js/random-streams-minstd/actions/workflows/test.yml/badge.svg?branch=v0.1.0
 [test-url]: https://github.com/stdlib-js/random-streams-minstd/actions/workflows/test.yml?query=branch:v0.1.0
