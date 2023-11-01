@@ -40,8 +40,8 @@
     "url": "https://github.com/stdlib-js/stdlib/issues"
   },
   "dependencies": {
-    "@stdlib/array-int32": "^0.1.0",
-    "@stdlib/array-uint8": "^0.1.0",
+    "@stdlib/array-int32": "^0.1.1",
+    "@stdlib/array-uint8": "^0.1.1",
     "@stdlib/assert-has-own-property": "^0.1.1",
     "@stdlib/assert-is-boolean": "^0.1.1",
     "@stdlib/assert-is-error": "^0.1.1",
@@ -82,7 +82,7 @@
     "@stdlib/constants-int32-max": "^0.1.1",
     "@stdlib/fs-exists": "^0.1.1",
     "@stdlib/fs-unlink": "^0.1.1",
-    "@stdlib/math-base-assert-is-integer": "^0.1.0",
+    "@stdlib/math-base-assert-is-integer": "^0.1.1",
     "@stdlib/math-base-assert-is-nan": "^0.1.1",
     "@stdlib/process-exec-path": "^0.1.1",
     "@stdlib/streams-node-inspect-sink": "^0.1.0",
