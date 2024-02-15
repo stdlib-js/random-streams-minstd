@@ -191,16 +191,16 @@ Copyright &copy; 2016-2024. The Stdlib [Authors][stdlib-authors].
 [npm-image]: http://img.shields.io/npm/v/@stdlib/random-streams-minstd-cli.svg
 [npm-url]: https://npmjs.org/package/@stdlib/random-streams-minstd-cli
 
-[test-image]: https://github.com/stdlib-js/random-streams-minstd/actions/workflows/test.yml/badge.svg?branch=v0.2.0
-[test-url]: https://github.com/stdlib-js/random-streams-minstd/actions/workflows/test.yml?query=branch:v0.2.0
+[test-image]: https://github.com/stdlib-js/random-streams-minstd@v0.2.0/actions/workflows/test.yml/badge.svg?branch=v0.2.0
+[test-url]: https://github.com/stdlib-js/random-streams-minstd@v0.2.0/actions/workflows/test.yml?query=branch:v0.2.0
 
-[coverage-image]: https://img.shields.io/codecov/c/github/stdlib-js/random-streams-minstd/main.svg
-[coverage-url]: https://codecov.io/github/stdlib-js/random-streams-minstd?branch=main
+[coverage-image]: https://img.shields.io/codecov/c/github/stdlib-js/random-streams-minstd@v0.2.0/main.svg
+[coverage-url]: https://codecov.io/github/stdlib-js/random-streams-minstd@v0.2.0?branch=main
 
 <!--
 
-[dependencies-image]: https://img.shields.io/david/stdlib-js/random-streams-minstd.svg
-[dependencies-url]: https://david-dm.org/stdlib-js/random-streams-minstd/main
+[dependencies-image]: https://img.shields.io/david/stdlib-js/random-streams-minstd@v0.2.0.svg
+[dependencies-url]: https://david-dm.org/stdlib-js/random-streams-minstd@v0.2.0/main
 
 -->
 
@@ -211,22 +211,22 @@ Copyright &copy; 2016-2024. The Stdlib [Authors][stdlib-authors].
 
 [stdlib-authors]: https://github.com/stdlib-js/stdlib/graphs/contributors
 
-[cli-section]: https://github.com/stdlib-js/random-streams-minstd#cli
-[cli-url]: https://github.com/stdlib-js/random-streams-minstd/tree/cli
-[@stdlib/random-streams-minstd]: https://github.com/stdlib-js/random-streams-minstd/tree/main
+[cli-section]: https://github.com/stdlib-js/random-streams-minstd@v0.2.0#cli
+[cli-url]: https://github.com/stdlib-js/random-streams-minstd@v0.2.0/tree/cli
+[@stdlib/random-streams-minstd]: https://github.com/stdlib-js/random-streams-minstd@v0.2.0/tree/main
 
 [umd]: https://github.com/umdjs/umd
 [es-module]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 
-[deno-url]: https://github.com/stdlib-js/random-streams-minstd/tree/deno
-[deno-readme]: https://github.com/stdlib-js/random-streams-minstd/blob/deno/README.md
-[umd-url]: https://github.com/stdlib-js/random-streams-minstd/tree/umd
-[umd-readme]: https://github.com/stdlib-js/random-streams-minstd/blob/umd/README.md
-[esm-url]: https://github.com/stdlib-js/random-streams-minstd/tree/esm
-[esm-readme]: https://github.com/stdlib-js/random-streams-minstd/blob/esm/README.md
-[branches-url]: https://github.com/stdlib-js/random-streams-minstd/blob/main/branches.md
+[deno-url]: https://github.com/stdlib-js/random-streams-minstd@v0.2.0/tree/deno
+[deno-readme]: https://github.com/stdlib-js/random-streams-minstd@v0.2.0/blob/deno/README.md
+[umd-url]: https://github.com/stdlib-js/random-streams-minstd@v0.2.0/tree/umd
+[umd-readme]: https://github.com/stdlib-js/random-streams-minstd@v0.2.0/blob/umd/README.md
+[esm-url]: https://github.com/stdlib-js/random-streams-minstd@v0.2.0/tree/esm
+[esm-readme]: https://github.com/stdlib-js/random-streams-minstd@v0.2.0/blob/esm/README.md
+[branches-url]: https://github.com/stdlib-js/random-streams-minstd@v0.2.0/blob/main/branches.md
 
-[stdlib-license]: https://raw.githubusercontent.com/stdlib-js/random-streams-minstd/main/LICENSE
+[stdlib-license]: https://raw.githubusercontent.com/stdlib-js/random-streams-minstd@v0.2.0/main/LICENSE
 
 [stream]: https://nodejs.org/api/stream.html
 
@@ -244,7 +244,7 @@ Copyright &copy; 2016-2024. The Stdlib [Authors][stdlib-authors].
 
 [@stdlib/random/iter/minstd]: https://github.com/stdlib-js/random-iter-minstd
 
-[@stdlib/random/streams/minstd-shuffle]: https://github.com/stdlib-js/random-streams-minstd-shuffle
+[@stdlib/random/streams/minstd-shuffle]: https://github.com/stdlib-js/random-streams-minstd@v0.2.0-shuffle
 
 [@stdlib/random/streams/mt19937]: https://github.com/stdlib-js/random-streams-mt19937
 
