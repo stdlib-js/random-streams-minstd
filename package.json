@@ -82,7 +82,7 @@
     "@stdlib/constants-int32-max": "^0.3.0",
     "@stdlib/fs-exists": "^0.2.2",
     "@stdlib/fs-unlink": "^0.2.2",
-    "@stdlib/math-base-assert-is-integer": "^0.2.5",
+    "@stdlib/math-base-assert-is-integer": "^0.2.6",
     "@stdlib/math-base-assert-is-nan": "^0.2.2",
     "@stdlib/process-exec-path": "^0.2.2",
     "@stdlib/streams-node-inspect-sink": "^0.2.2",
